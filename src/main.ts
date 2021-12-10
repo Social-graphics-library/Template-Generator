@@ -15,7 +15,7 @@ const createWindow = () => {
     win.loadFile('./static/index.html')
 
     // Open the DevTools.
-    // mainWindow.webContents.openDevTools()
+    win.webContents.openDevTools()
 }
 
 app.whenReady().then(() => {
