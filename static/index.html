@@ -6,16 +6,29 @@
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
     <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
     <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <title>Hello World!</title>
+    <title>SGL Template Generator</title>
     <link rel="stylesheet" href="../dist/css/main.css">
+    <link rel="shortcut icon" href="../static/assets/sgl.png" type="image/x-icon">
+    <script>
+        let $ = require('jquery');
+    </script>
+    <script>
+        require('@popperjs/core');
+    </script>
+    <script>
+        require('bootstrap');
+    </script>
 </head>
 
 <body>
-    <h1>Hello World!</h1>
-    <p>We are using Node.js <span id="node-version"></span>,
-    Chromium <span id="chrome-version"></span>,
-    and Electron <span id="electron-version"></span>.
-    </p>
+    <header>
+        <img src="../static/assets/sgl.png" class="logo" alt="logo">
+        <h1> Template Generator</h1>
+    </header>
+    <main>
+        <div id="app">
+        </div>
+    </main>
 </body>
 
 </html>

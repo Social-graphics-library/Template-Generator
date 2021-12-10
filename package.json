@@ -11,6 +11,13 @@
     "watch-ts": "tsc --watch",
     "watch-sass": "sass --watch src/sass/main.sass dist/css/main.css"
   },
+  "mac": {
+    "icon": "./static/assets/sgl.icns",    
+    "category": "public.app-category.utilities"
+  },
+  "win": {
+    "icon": "./static/assets/sgl.png" 
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Social-graphics-library/Template-Generator.git"
@@ -30,8 +37,14 @@
   },
   "homepage": "https://github.com/Social-graphics-library/Template-Generator#readme",
   "devDependencies": {
+    "@types/bootstrap": "^5.1.6",
     "electron": "^16.0.4",
     "sass": "^1.44.0",
     "typescript": "^4.5.2"
+  },
+  "dependencies": {
+    "@popperjs/core": "^2.11.0",
+    "bootstrap": "^5.1.3",
+    "jquery": "^3.6.0"
   }
 }
