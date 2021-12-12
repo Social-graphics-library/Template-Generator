@@ -1,3 +1,4 @@
+import { Editor } from "./editor";
 import { Guid } from "./guid";
 import { Renderer } from "./renderer";
 
@@ -47,5 +48,7 @@ export class App {
         const render = Renderer.getInstance();
         console.log('App running');
         render.renderMain(target);
+        const editor = Editor.getInstance();
+        editor;
     }
 }

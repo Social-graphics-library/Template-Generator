@@ -1,20 +1,22 @@
 @import "../../node_modules/bootstrap/scss/bootstrap"
+@import "../../node_modules/codemirror/lib/codemirror"
+@import "../../node_modules/sweetalert2/dist/sweetalert2"
 @import 'mixin'
 @import 'header'
 @import 'app-navigation'
 @import 'app-body'
 
 body, html
-    background-color: #E4E5E9 
-    font-family: 'Arial', sans-serif 
-    font-size: 16px 
-    line-height: 1.5 
-    color: #263F60 
-    padding: 0 
-    -webkit-overflow-scrolling: touch 
-    -webkit-tap-highlight-color: transparent 
-    -webkit-font-smoothing: antialiased 
-    -moz-osx-font-smoothing: grayscale 
+    background-color: #E4E5E9
+    font-family: 'Arial', sans-serif
+    font-size: 16px
+    line-height: 1.5
+    color: #263F60
+    padding: 0
+    -webkit-overflow-scrolling: touch
+    -webkit-tap-highlight-color: transparent
+    -webkit-font-smoothing: antialiased
+    -moz-osx-font-smoothing: grayscale
 
 p, h1, h2, h3, h4, h5, h6, span
     @include noselect
@@ -22,3 +24,15 @@ p, h1, h2, h3, h4, h5, h6, span
 main
     margin: 2rem
     height: 100%
+
+/* width */
+::-webkit-scrollbar
+    width: 0.5rem
+
+/* Track */
+::-webkit-scrollbar-track
+    background-color: #e5e5e5
+
+/* Handle */
+::-webkit-scrollbar-thumb
+    background-color: #2f3241

@@ -7,7 +7,7 @@ const createWindow = () => {
         titleBarStyle: 'hidden',
         titleBarOverlay: {
             color: '#2f3241',
-            symbolColor: '#74b1be'
+            symbolColor: '#74b1be',
         },
         minWidth: 800,
         minHeight: 600,
@@ -17,7 +17,7 @@ const createWindow = () => {
     win.loadFile('./static/index.html')
 
     // Open the DevTools.
-    win.webContents.openDevTools()
+    win.webContents.openDevTools({ mode: 'detach' })
 }
 
 app.whenReady().then(() => {
