@@ -1,0 +1,23 @@
+/**
+ * Renderer
+ */
+export declare class Renderer {
+    /**
+     * Instance of app
+     */
+    private static instance;
+    /**
+     * Creates an instance of renderer.
+     */
+    private constructor();
+    /**
+     * Gets instance
+     * @returns instance
+     */
+    static getInstance(): Renderer;
+    /**
+     * Renders main
+     * @param appRoot
+     */
+    renderMain(appRoot: HTMLDivElement): void;
+}

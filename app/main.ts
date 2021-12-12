@@ -4,11 +4,13 @@ const createWindow = () => {
     const win = new BrowserWindow({
         width: 800,
         height: 600,
-        autoHideMenuBar: true,
+        titleBarStyle: 'hidden',
+        titleBarOverlay: {
+            color: '#2f3241',
+            symbolColor: '#74b1be'
+        },
         minWidth: 800,
         minHeight: 600,
-        maxHeight: 600,
-        maxWidth: 800,
         icon: './static/assets/sgl.ico',
     })
 

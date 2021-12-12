@@ -1,3 +1,6 @@
+import { Guid } from "./guid";
+import { Renderer } from "./renderer";
+
 /**
  * App
  */
@@ -8,6 +11,8 @@ export class App {
      */
     private static instance: App
 
+    public id: string
+
     /**
      * App target of app
      */
@@ -17,6 +22,7 @@ export class App {
      * Creates an instance of app.
      */
     private constructor() {
+        this.id = Guid.newGuid();
         console.log('App initialized');
     }
 
@@ -38,7 +44,8 @@ export class App {
      */
     public async run(): Promise<void> {
         const target = this.appTarget;
+        const render = Renderer.getInstance();
         console.log('App running');
-        target.innerHTML = '<h1>App running</h1>';
+        render.renderMain(target);
     }
 }

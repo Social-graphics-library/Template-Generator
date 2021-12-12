@@ -1,0 +1,26 @@
+@import 'mixin'
+
+header
+    -webkit-user-select: none
+    -webkit-app-region: drag
+    top: 0
+    left: 0
+    right: 0
+    background-color: #2f3241
+    color: #74b1be
+    width: 100%
+    height: fit-content
+    border-bottom: 1px solid #e5e5e5
+    font-weight: bolder
+    display: flex
+    padding: 0.2rem
+
+    h2
+        padding: 0
+        margin: 0
+        font-size: 1.4rem
+
+.logo
+    width: 1.5rem
+    height: 1.5rem
+    @include noselect

@@ -1,4 +1,4 @@
-import { App } from './classes/app.js'
+import { App } from './classes/app'
 import 'bootstrap'
 import '@popperjs/core'
 import 'jquery'

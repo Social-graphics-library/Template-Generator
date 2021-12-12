@@ -4,8 +4,8 @@
 <head>
     <meta charset="UTF-8">
     <!-- https://developer.mozilla.org/en-US/docs/Web/HTTP/CSP -->
-    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'">
-    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self'">
+    <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'">
+    <meta http-equiv="X-Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-eval'">
     <title>SGL Template Generator</title>
     <link rel="stylesheet" href="../dist/css/main.css">
     <link rel="shortcut icon" href="../static/assets/sgl.png" type="image/x-icon">
@@ -14,12 +14,12 @@
 <body>
     <header>
         <img src="../static/assets/sgl.png" class="logo" alt="logo">
-        <h1> Template Generator</h1>
+        <h2> Template Generator</h2>
     </header>
     <main>
         <div id="app">
         </div>
     </main>
 </body>
-<script src="../dist/App.js"></script>
+<script src="../dist/app.bundle.js"></script>
 </html>
