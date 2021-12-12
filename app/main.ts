@@ -2,8 +2,8 @@ import { app, BrowserWindow } from 'electron'
 
 const createWindow = () => {
     const win = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1000,
+        height: 800,
         titleBarStyle: 'hidden',
         titleBarOverlay: {
             color: '#2f3241',

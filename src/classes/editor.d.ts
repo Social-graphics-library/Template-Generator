@@ -23,5 +23,13 @@ export declare class Editor {
      * @returns instance
      */
     static getInstance(): Editor;
+    /**
+     * Sets editor listener
+     */
     private setEditorListener;
+    /**
+     * Saves edit
+     * @returns edit
+     */
+    saveEdit(): void;
 }

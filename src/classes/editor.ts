@@ -1,4 +1,5 @@
 import CodeMirror from 'codemirror';
+import { Template } from '../model/template';
 
 /**
  * Editor
@@ -26,7 +27,7 @@ export class Editor {
     constructor() {
         console.log('Editor initialized');
         this.target = document.getElementById('editor') as HTMLDivElement;
-        
+
         const editor = CodeMirror(this.target, {
             lineNumbers: true,
             mode: 'svg',
@@ -53,9 +54,13 @@ export class Editor {
         return Editor.instance;
     }
 
+    /**
+     * Sets editor listener
+     */
     private setEditorListener(): void {
         const fileDropZone = <HTMLInputElement>document.getElementById('svg-drop-zone') as HTMLInputElement;
         const fileDropZoneSubmit = <HTMLButtonElement>document.getElementById('submit-drop') as HTMLButtonElement;
+        const fileSave = <HTMLButtonElement>document.getElementById('save-button') as HTMLButtonElement;
 
         fileDropZoneSubmit.addEventListener('click', () => {
             console.log('submit');
@@ -65,12 +70,50 @@ export class Editor {
                 this.editor.setValue(result);
             };
 
-            if (fileDropZone.files !== null 
-                && fileDropZone.files.length > 0 
+            if (fileDropZone.files !== null
+                && fileDropZone.files.length > 0
                 && fileDropZone.files[0] !== undefined
                 && fileDropZone.files[0].type === 'image/svg+xml') {
                 reader.readAsText(fileDropZone.files[0]);
             }
         });
-    } 
+
+        fileSave.addEventListener('click', () => {
+            this.saveEdit()
+        });
+    }
+
+    /**
+     * Saves edit
+     * @returns edit 
+     */
+    public saveEdit(): void {
+        const templateString: string = this.editor.getValue();
+        const width = document.getElementById('width-input') as HTMLInputElement;
+        const height = document.getElementById('height-input') as HTMLInputElement;
+        const name = document.getElementById('name-input') as HTMLInputElement;
+        let template: Template;
+
+        if (width.value !== '' && height.value !== '' && name.value !== '') {
+
+            if (templateString !== undefined) {
+                template = new Template(width.value, height.value, name.value, templateString);
+            } else {
+                console.log('Template is undefined');
+                return;
+            }
+
+            const file = new File([template.exportString], 'template.ts', { type: 'text/plain' });
+
+            // save file in downloads folder
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(file);
+            a.download = name.value + '-template.ts';
+            a.click();
+
+            console.log('Saved');
+        } else {
+            console.log('Inputs are empty');
+        }
+    }
 }

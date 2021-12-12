@@ -39,14 +39,17 @@ export class Renderer {
         const svgDropZone = document.createElement('input');
         const widthInput = document.createElement('input');
         const heightInput = document.createElement('input');
+        const nameInput = document.createElement('input');
         const editor = document.createElement('div');
         const submitDrop = document.createElement('button');
         const saveButton = document.createElement('button');
         const infoBox = document.createElement('div');
         const breakText = document.createElement('br');
         const infoBoxText = document.createElement('p');
-        const infoBoxText1= document.createElement('code');
-        const infoBoxText2= document.createElement('code');
+        const infoBoxText1 = document.createElement('code');
+        const infoBoxText2 = document.createElement('code');
+        const fileForm = document.createElement('form');
+        const valuesForm = document.createElement('form');
 
         appNavigation.classList.add('app-navigation');  
         appBody.classList.add('app-body');
@@ -54,6 +57,8 @@ export class Renderer {
         optionMain.classList.add('nav-item');
         optionMain.classList.add('btn');
         optionMain.innerHTML = 'Generate new template';
+        
+        //#region svgDropZone
         svgDropZone.type = 'file';
         svgDropZone.accept = 'image/svg+xml';
         svgDropZone.classList.add('app-body__svg-drop-zone');
@@ -66,26 +71,58 @@ export class Renderer {
         svgDropZone.setAttribute('aria-valuenow', '0');
         svgDropZone.setAttribute('aria-valuemin', '0');
         svgDropZone.setAttribute('aria-valuemax', '1');
+        svgDropZone.required = true;
+        //#endregion
+        
+        //#region widthInput
         widthInput.type = 'number';
         widthInput.classList.add('app-body__width-input');
         widthInput.classList.add('form-control');
         widthInput.placeholder = 'Width';
+        widthInput.id = 'width-input';
+        widthInput.required = true;
+        //#endregion
+        
+        //#region heightInput
         heightInput.type = 'number';
         heightInput.classList.add('app-body__height-input');
         heightInput.classList.add('form-control');
+        heightInput.id = 'height-input';
         heightInput.placeholder = 'Height';
+        heightInput.required = true;
+        //#endregion
+        
+        //#region nameInput
+        nameInput.type = 'text';
+        nameInput.classList.add('app-body__name-input');
+        nameInput.classList.add('form-control');
+        nameInput.placeholder = 'Template name';
+        nameInput.id = 'name-input';
+        nameInput.required = true;
+        //#endregion
+        
+        //#region editor
         editor.classList.add('app-body__editor');
         editor.id = 'editor';
+        //#endregion
+        
+        //#region submitDrop
         submitDrop.classList.add('app-body__submit-drop');
         submitDrop.classList.add('btn');
         submitDrop.classList.add('btn-primary');
         submitDrop.innerHTML = 'Submit';
         submitDrop.id = 'submit-drop';
+        //#endregion
+
+        //#region saveButton
         saveButton.classList.add('app-body__save-button');
         saveButton.classList.add('btn');
         saveButton.classList.add('btn-success');
         saveButton.innerHTML = 'Save';
         saveButton.id = 'save-button';
+        //#endregion
+
+        //#region infoBox
         infoBox.classList.add('app-body__info-box');
         infoBox.id = 'info-box';
         infoBoxText.classList.add('app-body__info-box-text');
@@ -97,7 +134,28 @@ export class Renderer {
         infoBoxText2.classList.add('app-body__info-box-text-2');
         infoBoxText2.id = 'info-box-text-2';
         infoBoxText2.innerHTML = 'Key for the team name (optional): {team}';
+        //#endregion
 
+        //#region fileForm
+        fileForm.classList.add('app-body__file-form');
+        fileForm.id = 'file-form';
+        fileForm.setAttribute('enctype', 'multipart/form-data');
+        fileForm.setAttribute('action', '#');
+        fileForm.onsubmit = () => {
+            return false
+        };
+        //#endregion
+
+        //#region valuesForm
+        valuesForm.classList.add('app-body__values-form');
+        valuesForm.id = 'values-form';
+        valuesForm.setAttribute('enctype', 'multipart/form-data');
+        valuesForm.setAttribute('action', '#');
+        valuesForm.onsubmit = () => {
+            return false
+        };
+        //#endregion
+        
         navigation.appendChild(optionMain);
 
         infoBoxText.appendChild(infoBoxText1);
@@ -105,13 +163,16 @@ export class Renderer {
         infoBoxText.appendChild(infoBoxText2);
         infoBox.appendChild(infoBoxText);
 
-        appBody.appendChild(svgDropZone);
-        appBody.appendChild(submitDrop);
-        appBody.appendChild(infoBox);
+        fileForm.appendChild(svgDropZone);
+        fileForm.appendChild(submitDrop);
+        fileForm.appendChild(infoBox);
+        appBody.appendChild(fileForm);
         appBody.appendChild(editor);
-        appBody.appendChild(widthInput);
-        appBody.appendChild(heightInput);
-        appBody.appendChild(saveButton);
+        valuesForm.appendChild(nameInput);
+        valuesForm.appendChild(widthInput);
+        valuesForm.appendChild(heightInput);
+        valuesForm.appendChild(saveButton);
+        appBody.appendChild(valuesForm);
         appNavigation.appendChild(navigation);
         appRoot.appendChild(appNavigation);
         appRoot.appendChild(appBody);

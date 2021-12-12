@@ -3,8 +3,8 @@ exports.__esModule = true;
 var electron_1 = require("electron");
 var createWindow = function () {
     var win = new electron_1.BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 1000,
+        height: 800,
         titleBarStyle: 'hidden',
         titleBarOverlay: {
             color: '#2f3241',
