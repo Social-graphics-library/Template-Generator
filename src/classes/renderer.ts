@@ -1,3 +1,6 @@
+import { AlertHandler } from "./alertHandler";
+import $ from 'jquery';
+
 /**
  * Renderer
  */
@@ -9,9 +12,15 @@ export class Renderer {
     private static instance: Renderer
 
     /**
+     * Alert handler of renderer
+     */
+    private alertHandler: AlertHandler
+
+    /**
      * Creates an instance of renderer.
      */
     private constructor() {
+        this.alertHandler = new AlertHandler();
         console.log('Renderer initialized');
     }
 
@@ -43,9 +52,8 @@ export class Renderer {
         const editor = document.createElement('div');
         const submitDrop = document.createElement('button');
         const saveButton = document.createElement('button');
-        const infoBox = document.createElement('div');
+        const infoBox = document.createElement('pre');
         const breakText = document.createElement('br');
-        const infoBoxText = document.createElement('p');
         const infoBoxText1 = document.createElement('code');
         const infoBoxText2 = document.createElement('code');
         const fileForm = document.createElement('form');
@@ -125,15 +133,24 @@ export class Renderer {
         //#region infoBox
         infoBox.classList.add('app-body__info-box');
         infoBox.id = 'info-box';
-        infoBoxText.classList.add('app-body__info-box-text');
-        infoBoxText.id = 'info-box-text';
-        infoBoxText.innerHTML = '';
         infoBoxText1.classList.add('app-body__info-box-text-1');
         infoBoxText1.id = 'info-box-text-1';
         infoBoxText1.innerHTML = 'Key for the player name:          {player}';
+        const cp1 = document.createElement('p');
+        cp1.innerHTML = '{player}';
+        infoBoxText1.onclick = () => {
+            this.copyToClipboard(cp1);
+            this.alertHandler.fireSuccess('"{player}" Copied to clipboard');
+        };
         infoBoxText2.classList.add('app-body__info-box-text-2');
         infoBoxText2.id = 'info-box-text-2';
         infoBoxText2.innerHTML = 'Key for the team name (optional): {team}';
+        const cp2 = document.createElement('p');
+        cp2.innerHTML = '{team}';
+        infoBoxText2.onclick = () => {
+            this.copyToClipboard(cp2);
+            this.alertHandler.fireSuccess('"{team}" Copied to clipboard');
+        };
         //#endregion
 
         //#region fileForm
@@ -158,10 +175,9 @@ export class Renderer {
         
         navigation.appendChild(optionMain);
 
-        infoBoxText.appendChild(infoBoxText1);
-        infoBoxText.appendChild(breakText);
-        infoBoxText.appendChild(infoBoxText2);
-        infoBox.appendChild(infoBoxText);
+        infoBox.appendChild(infoBoxText1);
+        infoBox.appendChild(breakText);
+        infoBox.appendChild(infoBoxText2);
 
         fileForm.appendChild(svgDropZone);
         fileForm.appendChild(submitDrop);
@@ -176,5 +192,14 @@ export class Renderer {
         appNavigation.appendChild(navigation);
         appRoot.appendChild(appNavigation);
         appRoot.appendChild(appBody);
+    }
+
+    // generate a function that copys the content of a string element to the clipboard
+    private copyToClipboard(element: HTMLElement): void {
+        var $temp = $("<input>");
+        $("body").append($temp);
+        $temp.val($(element).text()).select();
+        document.execCommand("copy");
+        $temp.remove();
     }
 }

@@ -7,6 +7,10 @@ export declare class Renderer {
      */
     private static instance;
     /**
+     * Alert handler of renderer
+     */
+    private alertHandler;
+    /**
      * Creates an instance of renderer.
      */
     private constructor();
@@ -20,4 +24,5 @@ export declare class Renderer {
      * @param appRoot
      */
     renderMain(appRoot: HTMLDivElement): void;
+    private copyToClipboard;
 }

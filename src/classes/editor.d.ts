@@ -15,6 +15,10 @@ export declare class Editor {
      */
     private editor;
     /**
+     * Alert handler of editor
+     */
+    private alertHandler;
+    /**
      * Creates an instance of editor.
      */
     constructor();

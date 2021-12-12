@@ -1,5 +1,6 @@
 import CodeMirror from 'codemirror';
 import { Template } from '../model/template';
+import { AlertHandler } from './alertHandler';
 
 /**
  * Editor
@@ -22,9 +23,15 @@ export class Editor {
     private editor: CodeMirror.Editor
 
     /**
+     * Alert handler of editor
+     */
+    private alertHandler: AlertHandler 
+
+    /**
      * Creates an instance of editor.
      */
     constructor() {
+        this.alertHandler = new AlertHandler();
         console.log('Editor initialized');
         this.target = document.getElementById('editor') as HTMLDivElement;
 
@@ -100,6 +107,7 @@ export class Editor {
                 template = new Template(width.value, height.value, name.value, templateString);
             } else {
                 console.log('Template is undefined');
+                this.alertHandler.fireDanger('Template is undefined');
                 return;
             }
 
@@ -110,10 +118,11 @@ export class Editor {
             a.href = URL.createObjectURL(file);
             a.download = name.value + '-template.ts';
             a.click();
-
             console.log('Saved');
+            this.alertHandler.fireSuccess('Saved');
         } else {
             console.log('Inputs are empty');
+            this.alertHandler.fireWarning('Inputs are empty');
         }
     }
 }
