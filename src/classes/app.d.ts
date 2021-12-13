@@ -6,6 +6,9 @@ export declare class App {
      * Instance of app
      */
     private static instance;
+    /**
+     * Id  of app
+     */
     id: string;
     /**
      * App target of app

@@ -61,6 +61,9 @@ export class Renderer {
         const exportModeSelectBox = document.createElement('select');
         const exportModeSelectOJavaScript = document.createElement('option');
         const exportModeSelectOTypeScript = document.createElement('option');
+        const previewButton = document.createElement('button');
+        const iconOne = document.createElement('img');
+        const iconTwo = document.createElement('img');
 
         appNavigation.classList.add('app-navigation');
         appBody.classList.add('app-body');
@@ -134,11 +137,22 @@ export class Renderer {
         //#endregion
 
         //#region infoBox
+        iconOne.src = './assets/copy-solid.svg';
+        iconOne.classList.add('app-body__icon');
+        iconOne.classList.add('app-body__icon-copy');
+        iconOne.classList.add('icon');
+        iconOne.classList.add('icon-copy');
+        iconTwo.src = './assets/copy-solid.svg';
+        iconTwo.classList.add('app-body__icon');
+        iconTwo.classList.add('app-body__icon-copy');
+        iconTwo.classList.add('icon');
+        iconTwo.classList.add('icon-copy');
         infoBox.classList.add('app-body__info-box');
         infoBox.id = 'info-box';
         infoBoxText1.classList.add('app-body__info-box-text-1');
         infoBoxText1.id = 'info-box-text-1';
         infoBoxText1.innerHTML = 'Key for the player name:          {player}';
+        infoBoxText1.appendChild(iconOne);
         const cp1 = document.createElement('p');
         cp1.innerHTML = '{player}';
         infoBoxText1.onclick = () => {
@@ -148,6 +162,7 @@ export class Renderer {
         infoBoxText2.classList.add('app-body__info-box-text-2');
         infoBoxText2.id = 'info-box-text-2';
         infoBoxText2.innerHTML = 'Key for the team name (optional): {team}';
+        infoBoxText2.appendChild(iconTwo);
         const cp2 = document.createElement('p');
         cp2.innerHTML = '{team}';
         infoBoxText2.onclick = () => {
@@ -199,6 +214,14 @@ export class Renderer {
         exportModeSelectBox.appendChild(exportModeSelectOTypeScript);
         //#endregion
 
+        //#region previewButton
+        previewButton.classList.add('app-body__preview-button');
+        previewButton.classList.add('btn');
+        previewButton.classList.add('btn-light');
+        previewButton.innerHTML = 'Preview';
+        previewButton.id = 'preview-button';
+        //#endregion
+
         navigation.appendChild(optionMain);
 
         infoBox.appendChild(infoBoxText1);
@@ -210,6 +233,7 @@ export class Renderer {
         fileForm.appendChild(infoBox);
         appBody.appendChild(fileForm);
         appBody.appendChild(editor);
+        appBody.appendChild(previewButton);
         valuesForm.appendChild(nameInput);
         valuesForm.appendChild(widthInput);
         valuesForm.appendChild(heightInput);

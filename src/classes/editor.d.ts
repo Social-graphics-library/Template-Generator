@@ -16,6 +16,10 @@ export declare class Editor {
      */
     private editor;
     /**
+     * Preview of editor
+     */
+    private preview;
+    /**
      * Alert handler of editor
      */
     private alertHandler;
