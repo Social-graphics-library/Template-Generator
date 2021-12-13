@@ -23,9 +23,10 @@ export declare class Template {
      */
     exportString: string;
     /**
-     * Template raw string of template
+     * Template raw string type script of template
      */
-    private templateRawString;
+    private templateRawStringTypeScript;
+    private templateRawStringJavascript;
     /**
      * Creates an instance of template.
      * @param width

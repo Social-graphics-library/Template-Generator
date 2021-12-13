@@ -24,5 +24,9 @@ export declare class Renderer {
      * @param appRoot
      */
     renderMain(appRoot: HTMLDivElement): void;
+    /**
+     * Copys to clipboard
+     * @param element
+     */
     private copyToClipboard;
 }

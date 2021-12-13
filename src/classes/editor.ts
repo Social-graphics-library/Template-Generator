@@ -99,7 +99,9 @@ export class Editor {
         const width = document.getElementById('width-input') as HTMLInputElement;
         const height = document.getElementById('height-input') as HTMLInputElement;
         const name = document.getElementById('name-input') as HTMLInputElement;
+        const mode = document.getElementById('export-mode-select') as HTMLSelectElement;
         let template: Template;
+        let file: File;
 
         if (width.value !== '' && height.value !== '' && name.value !== '') {
 
@@ -111,15 +113,38 @@ export class Editor {
                 return;
             }
 
-            const file = new File([template.exportString], 'template.ts', { type: 'text/plain' });
+            switch (mode.value) {
+                case 'typescript':
+                    file = new File([template.exportString], name.value + '-template.ts', { type: 'text/plain' });
 
-            // save file in downloads folder
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(file);
-            a.download = name.value + '-template.ts';
-            a.click();
-            console.log('Saved');
-            this.alertHandler.fireSuccess('Saved');
+                    // save file in downloads folder
+                    let a = document.createElement('a');
+                    a.href = URL.createObjectURL(file);
+                    a.download = name.value + '-template.ts';
+                    a.click();
+                    console.log('Saved');
+                    this.alertHandler.fireSuccess('Saved');
+                    break;
+
+                case 'javascript':
+                    file = new File([template.exportString], name.value + '-template.js', { type: 'text/plain' });
+
+                    // save file in downloads folder
+                    let b = document.createElement('a');
+                    b.href = URL.createObjectURL(file);
+                    b.download = name.value + '-template.js';
+                    b.click();
+                    console.log('Saved');
+                    this.alertHandler.fireSuccess('Saved');
+                    break;
+            
+                default:
+                    this.alertHandler.fireDanger('Export mode is undefined');
+                    console.log('Export mode is undefined');
+                    break;
+            }
+
+            
         } else {
             console.log('Inputs are empty');
             this.alertHandler.fireWarning('Inputs are empty');

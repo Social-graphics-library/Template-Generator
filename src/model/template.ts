@@ -2,7 +2,7 @@
  * Template
  */
 export class Template {
-    
+
     /**
      * Width of template
      */
@@ -29,9 +29,9 @@ export class Template {
     public exportString: string;
 
     /**
-     * Template raw string of template
+     * Template raw string type script of template
      */
-    private templateRawString: string = `export class {templateName} {
+    private templateRawStringTypeScript: string = `export class {templateName} {
 
     static readonly width: number = {templateWidth};
 
@@ -44,6 +44,22 @@ export class Template {
         }
     }`;
 
+    private templateRawStringJavascript: string = `export class {templateName} {
+        static template(teamName, playerName) {
+            teamName;
+            playerName;
+            return '{templateContent}';
+        }
+    }
+    /**
+     * Width  of example template
+     */
+    Example_Template.width = {templateWidth};
+    /**
+     * Height  of example template
+     */
+    Example_Template.height = {templateHeight};`;
+
     /**
      * Creates an instance of template.
      * @param width 
@@ -51,7 +67,7 @@ export class Template {
      * @param name 
      * @param content 
      */
-    constructor(width: string, height: string, name:string, content: string) {
+    constructor(width: string, height: string, name: string, content: string) {
         this.width = width;
         this.height = height;
         this.name = name;
@@ -64,11 +80,30 @@ export class Template {
      * Parses template
      */
     private parseTemplate(): void {
-        this.exportString = this.templateRawString
-            .replace("{templateName}", this.name + "-template")
-            .replace("{templateWidth}", this.width.toString())
-            .replace("{templateHeight}", this.height.toString())
-            .replace("{templateContent}", this.content); 
+        const mode = <HTMLSelectElement>document.getElementById("export-mode-select");
+
+        switch (mode.value) {
+            case "typescript":
+                this.exportString = this.templateRawStringTypeScript
+                    .replace("{templateName}", this.name + "-template")
+                    .replace("{templateWidth}", this.width.toString())
+                    .replace("{templateHeight}", this.height.toString())
+                    .replace("{templateContent}", this.content);
+                break;
+
+            case "javascript":
+                this.exportString = this.templateRawStringJavascript
+                    .replace("{templateName}", this.name + "-template")
+                    .replace("{templateWidth}", this.width.toString())
+                    .replace("{templateHeight}", this.height.toString())
+                    .replace("{templateContent}", this.content);
+                break;
+        
+            default:
+                
+                console.log("Error: Unknown export mode");
+                break;
+        }
     }
 
     /**
@@ -76,9 +111,9 @@ export class Template {
      * @param content 
      * @returns content 
      */
-    private parseContent(content: string):string {
+    private parseContent(content: string): string {
         let result = content.replace("{player}", "' + playerName + '")
-                            .replace("{team}", "' + teamName + '");
+            .replace("{team}", "' + teamName + '");
         return result;
     }
 }
