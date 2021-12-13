@@ -8,7 +8,7 @@ export class Preview {
     /**
      * Status of preview
      */
-    private status: boolean 
+    private status: boolean
 
     /**
      * Window of preview
@@ -52,7 +52,7 @@ export class Preview {
 
     /**
      * Gets instance
-     * @returns instance 
+     * @returns instance
      */
     public static getInstance(editor: CodeMirror.Editor): Preview {
         if (!Preview.instance) {
@@ -64,7 +64,7 @@ export class Preview {
 
     /**
      * Gets status
-     * @returns true if status 
+     * @returns true if status
      */
     public getStatus(): boolean {
         return this.status
@@ -72,7 +72,7 @@ export class Preview {
 
     /**
      * Sets status
-     * @param status 
+     * @param status
      */
     public setStatus(status: boolean): void {
         this.status = status
@@ -130,8 +130,8 @@ export class Preview {
 
     /**
      * Parses svg
-     * @param svg 
-     * @returns svg 
+     * @param svg
+     * @returns svg
      */
     private parseSVG(svg: string): SVGElement {
         const parser = new DOMParser()
