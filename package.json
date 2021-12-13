@@ -4,6 +4,7 @@
   "description": "A tool to generate Templates from SVG Files",
   "main": "./app/main.js",
   "private": true,
+  "productName": "SGL Template Generator",
   "scripts": {
     "start": "electron .",
     "build": "npm run build-main-file && npm run build-sass && webpack --config ./webpack.config.js",
@@ -11,14 +12,25 @@
     "build-main-file-watch": "tsc ./app/main.ts --watch",
     "watch-webpack": "webpack --config ./webpack.config.js --watch",
     "build-sass": "sass src/sass/main.sass dist/css/main.css",
-    "watch-sass": "sass --watch src/sass/main.sass dist/css/main.css"
+    "watch-sass": "sass --watch src/sass/main.sass dist/css/main.css",
+    "deploy-files": "npm run build && npx electron-packager . --out=tmp/build/electron/",
+    "deploy": "node ./tools/deploy.js"
+  },
+  "build": {
+    	"mac": {
+        "icon": "./static/assets/sgl.icns",
+        "category": "public.app-category.utilities"
+      },
+      "win": {
+        "icon": "./static/assets/sgl.ico"
+      }
   },
   "mac": {
     "icon": "./static/assets/sgl.icns",
     "category": "public.app-category.utilities"
   },
   "win": {
-    "icon": "./static/assets/sgl.png"
+    "icon": "./static/assets/sgl.ico"
   },
   "repository": {
     "type": "git",
@@ -45,6 +57,7 @@
     "@types/bootstrap": "^5.1.6",
     "@types/codemirror": "^5.60.5",
     "electron": "^16.0.4",
+    "electron-packager": "^15.4.0",
     "sass": "^1.44.0",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.3",
