@@ -7,8 +7,8 @@ export class AlertHandler {
 
     /**
      * Structures alert handler
-     * @param mode 
-     * @returns structure 
+     * @param mode
+     * @returns structure
      */
     private structure(mode: TMode, content: string): string {
         return '<div class="alert alert-' + mode + '" role="alert">' + content + '</div>'
@@ -16,7 +16,7 @@ export class AlertHandler {
 
     /**
      * Fires warning
-     * @param [message] 
+     * @param [message]
      */
     public fireWarning(message?:string): void {
         if (message == undefined) {
@@ -27,7 +27,7 @@ export class AlertHandler {
     
     /**
      * Fires success
-     * @param [message] 
+     * @param [message]
      */
     public fireSuccess(message?:string): void {
         if (message == undefined) {
@@ -38,7 +38,7 @@ export class AlertHandler {
 
     /**
      * Fires danger
-     * @param [message] 
+     * @param [message]
      */
     public fireDanger(message?:string): void {
         if (message == undefined) {
@@ -49,7 +49,7 @@ export class AlertHandler {
 
     /**
      * Fires info
-     * @param [message] 
+     * @param [message]
      */
     public fireInfo(message?:string): void {
         if (message == undefined) {
@@ -60,7 +60,7 @@ export class AlertHandler {
 
     /**
      * Fires light
-     * @param [message] 
+     * @param [message]
      */
     public fireLight(message?:string): void {
         if (message == undefined) {
@@ -71,7 +71,7 @@ export class AlertHandler {
 
     /**
      * Fires dark
-     * @param [message] 
+     * @param [message]
      */
     public fireDark(message?:string): void {
         if (message == undefined) {
@@ -82,7 +82,7 @@ export class AlertHandler {
 
     /**
      * Fires primary
-     * @param [message] 
+     * @param [message]
      */
     public firePrimary(message?:string): void {
         if (message == undefined) {
@@ -93,7 +93,7 @@ export class AlertHandler {
 
     /**
      * Fires secondary
-     * @param [message] 
+     * @param [message]
      */
     public fireSecondary(message?:string): void {
         if (message == undefined) {
@@ -104,7 +104,7 @@ export class AlertHandler {
 
     /**
      * Fires timer
-     * @param alert 
+     * @param alert
      */
     private async fireTimer(alert: string): Promise<void> {
         let response = document.createElement('div');

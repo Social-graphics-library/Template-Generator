@@ -62,10 +62,10 @@ export class Template {
 
     /**
      * Creates an instance of template.
-     * @param width 
-     * @param height 
-     * @param name 
-     * @param content 
+     * @param width
+     * @param height
+     * @param name
+     * @param content
      */
     constructor(width: string, height: string, name: string, content: string) {
         this.width = width;
@@ -108,8 +108,8 @@ export class Template {
 
     /**
      * Parses content
-     * @param content 
-     * @returns content 
+     * @param content
+     * @returns content
      */
     private parseContent(content: string): string {
         let result = content.replace("{player}", "' + playerName + '")

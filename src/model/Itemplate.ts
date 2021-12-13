@@ -14,10 +14,10 @@ export interface Itemplate {
     height: number;
 
     /**
-     * 
-     * @param teamName 
-     * @param playerName 
-     * @returns template 
+     *
+     * @param teamName
+     * @param playerName
+     * @returns template
      */
     template(teamName: string, playerName: string): string
 }
