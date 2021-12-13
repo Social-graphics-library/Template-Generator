@@ -12,6 +12,9 @@ export class App {
      */
     private static instance: App
 
+    /**
+     * Id  of app
+     */
     public id: string
 
     /**

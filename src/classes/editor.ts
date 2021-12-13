@@ -2,6 +2,7 @@ import CodeMirror from 'codemirror';
 import '../../node_modules/codemirror/mode/xml/xml';
 import { Template } from '../model/template';
 import { AlertHandler } from './alertHandler';
+import { Preview } from './preview';
 
 /**
  * Editor
@@ -22,6 +23,11 @@ export class Editor {
      * Editor value
      */
     private editor: CodeMirror.Editor
+
+    /**
+     * Preview of editor
+     */
+    private preview: Preview;
 
     /**
      * Alert handler of editor
@@ -48,6 +54,9 @@ export class Editor {
         this.editor = editor;
 
         this.setEditorListener();
+
+        this.preview = Preview.getInstance(editor);
+        this.preview;
     }
 
     /**
