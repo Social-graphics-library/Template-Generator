@@ -29,7 +29,7 @@ export class App {
 
     /**
      * Gets instance
-     * @returns instance 
+     * @returns instance
      */
     public static getInstance(): App {
         if (!App.instance) {
@@ -41,7 +41,7 @@ export class App {
 
     /**
      * Runs app
-     * @returns run 
+     * @returns run
      */
     public async run(): Promise<void> {
         const target = this.appTarget;
