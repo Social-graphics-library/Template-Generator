@@ -58,6 +58,9 @@ export class Renderer {
         const infoBoxText2 = document.createElement('code');
         const fileForm = document.createElement('form');
         const valuesForm = document.createElement('form');
+        const exportModeSelectBox = document.createElement('select');
+        const exportModeSelectOJavaScript = document.createElement('option');
+        const exportModeSelectOTypeScript = document.createElement('option');
 
         appNavigation.classList.add('app-navigation');  
         appBody.classList.add('app-body');
@@ -173,6 +176,29 @@ export class Renderer {
         };
         //#endregion
         
+        //#region exortModeSelect
+        exportModeSelectBox.classList.add('app-body__export-mode-select');
+        exportModeSelectBox.classList.add('form-control');
+        exportModeSelectBox.id = 'export-mode-select';
+        exportModeSelectBox.required = true;
+        
+        exportModeSelectOJavaScript.classList.add('app-body__export-mode-select-option');
+        exportModeSelectOJavaScript.classList.add('form-control');
+        exportModeSelectOJavaScript.innerHTML = 'JavaScript';
+        exportModeSelectOJavaScript.value = 'javascript';
+        exportModeSelectOJavaScript.id = 'export-mode-select-option-javascript';
+        exportModeSelectOJavaScript.selected = true;
+
+        exportModeSelectOTypeScript.classList.add('app-body__export-mode-select-option');
+        exportModeSelectOTypeScript.classList.add('form-control');
+        exportModeSelectOTypeScript.innerHTML = 'TypeScript';
+        exportModeSelectOTypeScript.value = 'typescript';
+        exportModeSelectOTypeScript.id = 'export-mode-select-option-typescript';
+        
+        exportModeSelectBox.appendChild(exportModeSelectOJavaScript);
+        exportModeSelectBox.appendChild(exportModeSelectOTypeScript);
+        //#endregion
+
         navigation.appendChild(optionMain);
 
         infoBox.appendChild(infoBoxText1);
@@ -187,6 +213,7 @@ export class Renderer {
         valuesForm.appendChild(nameInput);
         valuesForm.appendChild(widthInput);
         valuesForm.appendChild(heightInput);
+        valuesForm.appendChild(exportModeSelectBox);
         valuesForm.appendChild(saveButton);
         appBody.appendChild(valuesForm);
         appNavigation.appendChild(navigation);
@@ -194,7 +221,10 @@ export class Renderer {
         appRoot.appendChild(appBody);
     }
 
-    // generate a function that copys the content of a string element to the clipboard
+    /**
+     * Copys to clipboard
+     * @param element 
+     */
     private copyToClipboard(element: HTMLElement): void {
         var $temp = $("<input>");
         $("body").append($temp);
