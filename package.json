@@ -13,7 +13,7 @@
     "watch-webpack": "webpack --config ./webpack.config.js --watch",
     "build-sass": "sass src/sass/main.sass dist/css/main.css",
     "watch-sass": "sass --watch src/sass/main.sass dist/css/main.css",
-    "deploy-files": "npm run build && npx electron-packager . --out=tmp/build/electron/",
+    "deploy-files": "npm run build && npx electron-packager . sgl-template-generator --out=tmp/build/electron/",
     "deploy": "node ./tools/deploy.js"
   },
   "build": {
@@ -58,6 +58,7 @@
     "@types/codemirror": "^5.60.5",
     "electron": "^16.0.4",
     "electron-packager": "^15.4.0",
+    "electron-winstaller": "^5.0.0",
     "sass": "^1.44.0",
     "ts-loader": "^9.2.6",
     "typescript": "^4.5.3",

@@ -1,4 +1,5 @@
 import CodeMirror from 'codemirror';
+import '../../node_modules/codemirror/mode/xml/xml';
 import { Template } from '../model/template';
 import { AlertHandler } from './alertHandler';
 
@@ -37,8 +38,8 @@ export class Editor {
 
         const editor = CodeMirror(this.target, {
             lineNumbers: true,
-            mode: 'svg',
-            theme: 'monokai',
+            mode: 'htmlmixed',
+            theme: 'default',
             value: '<svg></svg>'
         });
 
@@ -75,6 +76,7 @@ export class Editor {
             reader.onload = () => {
                 let result = <string>reader.result;
                 this.editor.setValue(result);
+                this.editor.refresh();
             };
 
             if (fileDropZone.files !== null
