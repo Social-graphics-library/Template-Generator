@@ -1,12 +1,11 @@
 const fs = require('fs');
-const path = require('path');
 
 const tmp = "./tmp/";
 const root = "./";
 
 function deleteFolderRecursive(path) {
     if (fs.existsSync(path)) {
-        fs.readdirSync(path).forEach(function (file, index) {
+        fs.readdirSync(path).forEach(function (file) {
             var curPath = path + "/" + file;
             if (fs.lstatSync(curPath).isDirectory()) { // recurse
                 deleteFolderRecursive(curPath);
@@ -24,6 +23,7 @@ function install(dir) {
         cwd: dir,
         stdio: 'inherit'
     });
+    child;
 }
 
 // execute npm run deploy
@@ -32,6 +32,7 @@ function deploy(dir) {
         cwd: dir,
         stdio: 'inherit'
     });
+    child;
 }
 
 deleteFolderRecursive(tmp);
