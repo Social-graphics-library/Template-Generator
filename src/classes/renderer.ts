@@ -26,7 +26,7 @@ export class Renderer {
 
     /**
      * Gets instance
-     * @returns instance 
+     * @returns instance
      */
     public static getInstance(): Renderer {
         if (!Renderer.instance) {
@@ -38,7 +38,7 @@ export class Renderer {
 
     /**
      * Renders main
-     * @param appRoot 
+     * @param appRoot
      */
     public renderMain(appRoot: HTMLDivElement):void {
         const appNavigation = document.createElement('div');
@@ -59,7 +59,7 @@ export class Renderer {
         const fileForm = document.createElement('form');
         const valuesForm = document.createElement('form');
 
-        appNavigation.classList.add('app-navigation');  
+        appNavigation.classList.add('app-navigation');
         appBody.classList.add('app-body');
         optionMain.classList.add('app-navigation__option-main');
         optionMain.classList.add('nav-item');

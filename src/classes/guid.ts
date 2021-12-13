@@ -5,7 +5,7 @@ export class Guid {
 
     /**
      * New guid
-     * @returns guid 
+     * @returns guid
      */
     static newGuid(): string {
         return 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {

@@ -25,7 +25,7 @@ export class Editor {
     /**
      * Alert handler of editor
      */
-    private alertHandler: AlertHandler 
+    private alertHandler: AlertHandler
 
     /**
      * Creates an instance of editor.
@@ -51,7 +51,7 @@ export class Editor {
 
     /**
      * Gets instance
-     * @returns instance 
+     * @returns instance
      */
     public static getInstance(): Editor {
         if (!Editor.instance) {
@@ -92,7 +92,7 @@ export class Editor {
 
     /**
      * Saves edit
-     * @returns edit 
+     * @returns edit
      */
     public saveEdit(): void {
         const templateString: string = this.editor.getValue();
