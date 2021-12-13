@@ -1,3 +1,4 @@
+import '../../node_modules/codemirror/mode/xml/xml';
 /**
  * Editor
  */
