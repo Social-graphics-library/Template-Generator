@@ -1,6 +1,8 @@
 import CodeMirror from 'codemirror';
+import '../../node_modules/codemirror/mode/xml/xml';
 import { Template } from '../model/template';
 import { AlertHandler } from './alertHandler';
+import { Preview } from './preview';
 
 /**
  * Editor
@@ -23,9 +25,14 @@ export class Editor {
     private editor: CodeMirror.Editor
 
     /**
+     * Preview of editor
+     */
+    private preview: Preview;
+
+    /**
      * Alert handler of editor
      */
-    private alertHandler: AlertHandler 
+    private alertHandler: AlertHandler
 
     /**
      * Creates an instance of editor.
@@ -37,8 +44,8 @@ export class Editor {
 
         const editor = CodeMirror(this.target, {
             lineNumbers: true,
-            mode: 'svg',
-            theme: 'monokai',
+            mode: 'htmlmixed',
+            theme: 'default',
             value: '<svg></svg>'
         });
 
@@ -47,11 +54,14 @@ export class Editor {
         this.editor = editor;
 
         this.setEditorListener();
+
+        this.preview = Preview.getInstance(editor);
+        this.preview;
     }
 
     /**
      * Gets instance
-     * @returns instance 
+     * @returns instance
      */
     public static getInstance(): Editor {
         if (!Editor.instance) {
@@ -75,6 +85,7 @@ export class Editor {
             reader.onload = () => {
                 let result = <string>reader.result;
                 this.editor.setValue(result);
+                this.editor.refresh();
             };
 
             if (fileDropZone.files !== null
@@ -92,14 +103,16 @@ export class Editor {
 
     /**
      * Saves edit
-     * @returns edit 
+     * @returns edit
      */
     public saveEdit(): void {
         const templateString: string = this.editor.getValue();
         const width = document.getElementById('width-input') as HTMLInputElement;
         const height = document.getElementById('height-input') as HTMLInputElement;
         const name = document.getElementById('name-input') as HTMLInputElement;
+        const mode = document.getElementById('export-mode-select') as HTMLSelectElement;
         let template: Template;
+        let file: File;
 
         if (width.value !== '' && height.value !== '' && name.value !== '') {
 
@@ -111,15 +124,38 @@ export class Editor {
                 return;
             }
 
-            const file = new File([template.exportString], 'template.ts', { type: 'text/plain' });
+            switch (mode.value) {
+                case 'typescript':
+                    file = new File([template.exportString], name.value + '-template.ts', { type: 'text/plain' });
 
-            // save file in downloads folder
-            const a = document.createElement('a');
-            a.href = URL.createObjectURL(file);
-            a.download = name.value + '-template.ts';
-            a.click();
-            console.log('Saved');
-            this.alertHandler.fireSuccess('Saved');
+                    // save file in downloads folder
+                    let a = document.createElement('a');
+                    a.href = URL.createObjectURL(file);
+                    a.download = name.value + '-template.ts';
+                    a.click();
+                    console.log('Saved');
+                    this.alertHandler.fireSuccess('Saved');
+                    break;
+
+                case 'javascript':
+                    file = new File([template.exportString], name.value + '-template.js', { type: 'text/plain' });
+
+                    // save file in downloads folder
+                    let b = document.createElement('a');
+                    b.href = URL.createObjectURL(file);
+                    b.download = name.value + '-template.js';
+                    b.click();
+                    console.log('Saved');
+                    this.alertHandler.fireSuccess('Saved');
+                    break;
+            
+                default:
+                    this.alertHandler.fireDanger('Export mode is undefined');
+                    console.log('Export mode is undefined');
+                    break;
+            }
+
+            
         } else {
             console.log('Inputs are empty');
             this.alertHandler.fireWarning('Inputs are empty');

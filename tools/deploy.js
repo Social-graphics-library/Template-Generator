@@ -6,7 +6,7 @@ const root = "./";
 
 function deleteFolderRecursive(path) {
     if (fs.existsSync(path)) {
-        fs.readdirSync(path).forEach(function (file, index) {
+        fs.readdirSync(path).forEach(function (file) {
             var curPath = path + "/" + file;
             if (fs.lstatSync(curPath).isDirectory()) { // recurse
                 deleteFolderRecursive(curPath);
@@ -18,23 +18,44 @@ function deleteFolderRecursive(path) {
     }
 }
 
-// execute npm install
 function install(dir) {
     const child = require('child_process').execSync('npm install', {
         cwd: dir,
         stdio: 'inherit'
     });
+    child;
 }
 
-// execute npm run deploy
 function deploy(dir) {
     const child = require('child_process').execSync('npm run deploy-files', {
         cwd: dir,
         stdio: 'inherit'
     });
+    child;
 }
+
+const electronInstaller = require('electron-winstaller');
+
+async function winInstaller() {
+    try {
+        await electronInstaller.createWindowsInstaller({
+            appDirectory: './tmp/build/electron/sgl-template-generator-win32-x64/',
+            title: 'SGLTemplateGenerator',
+            name: 'SGLTemplateGenerator',
+            outputDirectory: './tmp/build/installers/windows/',
+            authors: 'Jonas Pfalzgraf',
+            loadingGif: './static/assets/sgl.gif',
+            version: '1.0.0',
+            iconUrl: 'https://raw.githubusercontent.com/Social-graphics-library/Template-Generator/main/static/assets/sgl.ico',
+        });
+        console.log('It worked!');
+    } catch (e) {
+        console.log(`No dice: ${e.message}`);
+    }
+} 
 
 deleteFolderRecursive(tmp);
 deleteFolderRecursive(root + "dist");
 install(root);
 deploy(root);
+winInstaller(); 

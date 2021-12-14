@@ -1,3 +1,4 @@
+import '../../node_modules/codemirror/mode/xml/xml';
 /**
  * Editor
  */
@@ -14,6 +15,10 @@ export declare class Editor {
      * Editor value
      */
     private editor;
+    /**
+     * Preview of editor
+     */
+    private preview;
     /**
      * Alert handler of editor
      */

@@ -26,7 +26,7 @@ export class Renderer {
 
     /**
      * Gets instance
-     * @returns instance 
+     * @returns instance
      */
     public static getInstance(): Renderer {
         if (!Renderer.instance) {
@@ -38,7 +38,7 @@ export class Renderer {
 
     /**
      * Renders main
-     * @param appRoot 
+     * @param appRoot
      */
     public renderMain(appRoot: HTMLDivElement):void {
         const appNavigation = document.createElement('div');
@@ -58,8 +58,14 @@ export class Renderer {
         const infoBoxText2 = document.createElement('code');
         const fileForm = document.createElement('form');
         const valuesForm = document.createElement('form');
+        const exportModeSelectBox = document.createElement('select');
+        const exportModeSelectOJavaScript = document.createElement('option');
+        const exportModeSelectOTypeScript = document.createElement('option');
+        const previewButton = document.createElement('button');
+        const iconOne = document.createElement('img');
+        const iconTwo = document.createElement('img');
 
-        appNavigation.classList.add('app-navigation');  
+        appNavigation.classList.add('app-navigation');
         appBody.classList.add('app-body');
         optionMain.classList.add('app-navigation__option-main');
         optionMain.classList.add('nav-item');
@@ -131,11 +137,22 @@ export class Renderer {
         //#endregion
 
         //#region infoBox
+        iconOne.src = './assets/copy-solid.svg';
+        iconOne.classList.add('app-body__icon');
+        iconOne.classList.add('app-body__icon-copy');
+        iconOne.classList.add('icon');
+        iconOne.classList.add('icon-copy');
+        iconTwo.src = './assets/copy-solid.svg';
+        iconTwo.classList.add('app-body__icon');
+        iconTwo.classList.add('app-body__icon-copy');
+        iconTwo.classList.add('icon');
+        iconTwo.classList.add('icon-copy');
         infoBox.classList.add('app-body__info-box');
         infoBox.id = 'info-box';
         infoBoxText1.classList.add('app-body__info-box-text-1');
         infoBoxText1.id = 'info-box-text-1';
         infoBoxText1.innerHTML = 'Key for the player name:          {player}';
+        infoBoxText1.appendChild(iconOne);
         const cp1 = document.createElement('p');
         cp1.innerHTML = '{player}';
         infoBoxText1.onclick = () => {
@@ -145,6 +162,7 @@ export class Renderer {
         infoBoxText2.classList.add('app-body__info-box-text-2');
         infoBoxText2.id = 'info-box-text-2';
         infoBoxText2.innerHTML = 'Key for the team name (optional): {team}';
+        infoBoxText2.appendChild(iconTwo);
         const cp2 = document.createElement('p');
         cp2.innerHTML = '{team}';
         infoBoxText2.onclick = () => {
@@ -173,6 +191,37 @@ export class Renderer {
         };
         //#endregion
         
+        //#region exortModeSelect
+        exportModeSelectBox.classList.add('app-body__export-mode-select');
+        exportModeSelectBox.classList.add('form-control');
+        exportModeSelectBox.id = 'export-mode-select';
+        exportModeSelectBox.required = true;
+        
+        exportModeSelectOJavaScript.classList.add('app-body__export-mode-select-option');
+        exportModeSelectOJavaScript.classList.add('form-control');
+        exportModeSelectOJavaScript.innerHTML = 'JavaScript';
+        exportModeSelectOJavaScript.value = 'javascript';
+        exportModeSelectOJavaScript.id = 'export-mode-select-option-javascript';
+        exportModeSelectOJavaScript.selected = true;
+
+        exportModeSelectOTypeScript.classList.add('app-body__export-mode-select-option');
+        exportModeSelectOTypeScript.classList.add('form-control');
+        exportModeSelectOTypeScript.innerHTML = 'TypeScript';
+        exportModeSelectOTypeScript.value = 'typescript';
+        exportModeSelectOTypeScript.id = 'export-mode-select-option-typescript';
+        
+        exportModeSelectBox.appendChild(exportModeSelectOJavaScript);
+        exportModeSelectBox.appendChild(exportModeSelectOTypeScript);
+        //#endregion
+
+        //#region previewButton
+        previewButton.classList.add('app-body__preview-button');
+        previewButton.classList.add('btn');
+        previewButton.classList.add('btn-light');
+        previewButton.innerHTML = 'Preview';
+        previewButton.id = 'preview-button';
+        //#endregion
+
         navigation.appendChild(optionMain);
 
         infoBox.appendChild(infoBoxText1);
@@ -184,9 +233,11 @@ export class Renderer {
         fileForm.appendChild(infoBox);
         appBody.appendChild(fileForm);
         appBody.appendChild(editor);
+        appBody.appendChild(previewButton);
         valuesForm.appendChild(nameInput);
         valuesForm.appendChild(widthInput);
         valuesForm.appendChild(heightInput);
+        valuesForm.appendChild(exportModeSelectBox);
         valuesForm.appendChild(saveButton);
         appBody.appendChild(valuesForm);
         appNavigation.appendChild(navigation);
@@ -194,7 +245,10 @@ export class Renderer {
         appRoot.appendChild(appBody);
     }
 
-    // generate a function that copys the content of a string element to the clipboard
+    /**
+     * Copys to clipboard
+     * @param element
+     */
     private copyToClipboard(element: HTMLElement): void {
         var $temp = $("<input>");
         $("body").append($temp);
