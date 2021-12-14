@@ -33,30 +33,30 @@ The build script first installs all dependencies with ```npm install``` and then
 
 ### Step 1 - Select SVG file
 
-![Step 1](https://github.com/Social-graphics-library/Template-Generator/tree/main/static/assets/STEP_1.png)
+![Step 1](https://raw.githubusercontent.com/Social-graphics-library/Template-Generator/main/static/assets/STEP_1.png)
 
 ---
 
 ### Step 2 - Set position variables
 
-![Step 2](https://github.com/Social-graphics-library/Template-Generator/tree/main/static/assets/STEP_2.png)
+![Step 2](https://raw.githubusercontent.com/Social-graphics-library/Template-Generator/main/static/assets/STEP_2.png)
 
 ---
 
 ### Step 3 - Check the preview
 
-![Step 3](https://github.com/Social-graphics-library/Template-Generator/tree/main/static/assets/STEP_3.png)
+![Step 3](https://raw.githubusercontent.com/Social-graphics-library/Template-Generator/main/static/assets/STEP_3.png)
 
 ---
 
 ### Step 4 - If everything is correct, close preview
 
-![Step 4](https://github.com/Social-graphics-library/Template-Generator/tree/main/static/assets/STEP_4.png)
+![Step 4](https://raw.githubusercontent.com/Social-graphics-library/Template-Generator/main/static/assets/STEP_4.png)
 
 ---
 
 ### Step 5 - Set the template name, width and height, select the export mode and save
 
-![Step 5](https://github.com/Social-graphics-library/Template-Generator/tree/main/static/assets/STEP_5.png)
+![Step 5](https://raw.githubusercontent.com/Social-graphics-library/Template-Generator/main/static/assets/STEP_5.png)
 
 ---
