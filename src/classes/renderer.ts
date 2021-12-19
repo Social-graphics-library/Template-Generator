@@ -1,6 +1,7 @@
 import { AlertHandler } from "./alertHandler";
 import $ from 'jquery';
 import { SGL } from 'social-graphics-library'
+import { Editor } from "./editor";
 
 /**
  * Renderer
@@ -80,6 +81,7 @@ export class Renderer {
      */
     public renderMainPage(appRoot: HTMLDivElement):void {
         const appBody = document.createElement('div');
+        const appBodyTitle = document.createElement('h1');
         const svgDropZone = document.createElement('input');
         const widthInput = document.createElement('input');
         const heightInput = document.createElement('input');
@@ -101,6 +103,11 @@ export class Renderer {
         const iconTwo = document.createElement('img');
 
         appBody.classList.add('app-body');
+
+        //#region appBodyTitle
+        appBodyTitle.classList.add('app-body__title');
+        appBodyTitle.innerHTML = 'Generate';
+        //#endregion
         
         //#region svgDropZone
         svgDropZone.type = 'file';
@@ -259,6 +266,7 @@ export class Renderer {
         fileForm.appendChild(svgDropZone);
         fileForm.appendChild(submitDrop);
         fileForm.appendChild(infoBox);
+        appBody.appendChild(appBodyTitle);
         appBody.appendChild(fileForm);
         appBody.appendChild(editor);
         appBody.appendChild(previewButton);
@@ -271,13 +279,80 @@ export class Renderer {
         appRoot.innerHTML = '';
         this.renderNavigation(appRoot);
         appRoot.appendChild(appBody);
+        const editorIni = new Editor();
+        editorIni;
     }
 
+    /**
+     * Renders check page
+     * @param appRoot 
+     */
     public renderCheckPage(appRoot: HTMLDivElement) {
         appRoot.innerHTML = '';
         this.renderNavigation(appRoot);
         console.log(SGL.info());
         this.sgl;
+
+        const appBody = document.createElement('div');
+        appBody.classList.add('app-body');
+        appBody.id = 'app-body';
+
+        const appBodyTitle = document.createElement('h1');
+        appBodyTitle.classList.add('app-body__title');
+        appBodyTitle.innerHTML = 'Check';
+
+        const appBodyText = document.createElement('p');
+        appBodyText.classList.add('app-body__text');
+        appBodyText.innerHTML = 'Select your template and click the button below to see the result of the Check.';
+
+        const templateInput = document.createElement('input');
+        templateInput.classList.add('app-body__template-input');
+        templateInput.classList.add('form-control');
+        templateInput.id = 'template-input';
+        templateInput.type = 'file';
+        templateInput.required = true;
+        templateInput.accept = '.js';
+
+        const templateInputModeSelect = document.createElement('select');
+        templateInputModeSelect.classList.add('app-body__template-input-mode-select');
+        templateInputModeSelect.classList.add('form-control');
+        templateInputModeSelect.id = 'template-input-mode-select';
+        templateInputModeSelect.required = true;
+        
+        const templateInputModeSelectOption = document.createElement('option');
+        templateInputModeSelectOption.classList.add('app-body__template-input-mode-select-option');
+        templateInputModeSelectOption.innerHTML = 'JavaScript';
+        templateInputModeSelectOption.value = 'javascript';
+        templateInputModeSelectOption.id = 'template-input-mode-select-option-javascript';
+        templateInputModeSelectOption.selected = true;
+
+        const templateInputModeSelectOption2 = document.createElement('option');
+        templateInputModeSelectOption2.classList.add('app-body__template-input-mode-select-option');
+        templateInputModeSelectOption2.innerHTML = 'TypeScript';
+        templateInputModeSelectOption2.value = 'typescript';
+        templateInputModeSelectOption2.id = 'template-input-mode-select-option-typescript';
+
+        const checkButton = document.createElement('button');
+        checkButton.classList.add('app-body__check-button');
+        checkButton.classList.add('btn');
+        checkButton.classList.add('btn-success');
+        checkButton.innerHTML = 'Check';
+        checkButton.id = 'check-button';
+
+        const checkResult = document.createElement('div');
+        checkResult.classList.add('app-body__check-result');
+        checkResult.id = 'check-result';
+
+        templateInputModeSelect.appendChild(templateInputModeSelectOption);
+        templateInputModeSelect.appendChild(templateInputModeSelectOption2);
+
+        appBody.appendChild(appBodyTitle);
+        appBody.appendChild(appBodyText);
+        appBody.appendChild(templateInput);
+        appBody.appendChild(templateInputModeSelect);
+        appBody.appendChild(checkButton);
+        appBody.appendChild(checkResult);
+        appRoot.appendChild(appBody);
     }
 
     /**

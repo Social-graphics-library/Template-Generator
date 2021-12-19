@@ -33,6 +33,10 @@ export declare class Renderer {
      * @param appRoot
      */
     renderMainPage(appRoot: HTMLDivElement): void;
+    /**
+     * Renders check page
+     * @param appRoot
+     */
     renderCheckPage(appRoot: HTMLDivElement): void;
     /**
      * Copys to clipboard
