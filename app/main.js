@@ -16,7 +16,7 @@ var createWindow = function () {
     });
     win.loadFile('./static/index.html');
     // Open the DevTools.
-    // win.webContents.openDevTools({ mode: 'detach' })
+    win.webContents.openDevTools({ mode: 'detach' });
 };
 electron_1.app.whenReady().then(function () {
     createWindow();

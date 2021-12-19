@@ -50,7 +50,7 @@ export class App {
         const target = this.appTarget;
         const render = Renderer.getInstance();
         console.log('App running');
-        render.renderMain(target);
+        render.renderMainPage(target);
         const editor = Editor.getInstance();
         editor;
     }

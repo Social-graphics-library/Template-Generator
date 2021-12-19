@@ -1,5 +1,6 @@
 import { AlertHandler } from "./alertHandler";
 import $ from 'jquery';
+import { SGL } from 'social-graphics-library'
 
 /**
  * Renderer
@@ -17,10 +18,16 @@ export class Renderer {
     private alertHandler: AlertHandler
 
     /**
+     * Sgl instance of renderer
+     */
+    private sgl: SGL
+
+    /**
      * Creates an instance of renderer.
      */
     private constructor() {
         this.alertHandler = new AlertHandler();
+        this.sgl = new SGL();
         console.log('Renderer initialized');
     }
 
@@ -37,13 +44,41 @@ export class Renderer {
     }
 
     /**
-     * Renders main
-     * @param appRoot
+     * Renders navigation
+     * @param appRoot 
      */
-    public renderMain(appRoot: HTMLDivElement):void {
+    private renderNavigation(appRoot: HTMLDivElement):void {
         const appNavigation = document.createElement('div');
         const navigation = document.createElement('nav');
         const optionMain = document.createElement('button');
+        const optionCheck = document.createElement('button');
+
+        appNavigation.classList.add('app-navigation');
+        optionMain.classList.add('app-navigation__option-main');
+        optionMain.classList.add('nav-item');
+        optionMain.classList.add('btn');
+        optionMain.innerHTML = 'Generate new template';
+        optionMain.onclick = () => {
+            this.renderMainPage(appRoot);
+        }
+        optionCheck.classList.add('app-navigation__option-check');
+        optionCheck.classList.add('nav-item');
+        optionCheck.classList.add('btn');
+        optionCheck.innerHTML = 'Check template';
+        optionCheck.onclick = () => {
+            this.renderCheckPage(appRoot);
+        }
+        navigation.appendChild(optionMain);
+        navigation.appendChild(optionCheck);
+        appNavigation.appendChild(navigation);
+        appRoot.appendChild(appNavigation);
+    }
+
+    /**
+     * Renders main
+     * @param appRoot
+     */
+    public renderMainPage(appRoot: HTMLDivElement):void {
         const appBody = document.createElement('div');
         const svgDropZone = document.createElement('input');
         const widthInput = document.createElement('input');
@@ -65,12 +100,7 @@ export class Renderer {
         const iconOne = document.createElement('img');
         const iconTwo = document.createElement('img');
 
-        appNavigation.classList.add('app-navigation');
         appBody.classList.add('app-body');
-        optionMain.classList.add('app-navigation__option-main');
-        optionMain.classList.add('nav-item');
-        optionMain.classList.add('btn');
-        optionMain.innerHTML = 'Generate new template';
         
         //#region svgDropZone
         svgDropZone.type = 'file';
@@ -222,8 +252,6 @@ export class Renderer {
         previewButton.id = 'preview-button';
         //#endregion
 
-        navigation.appendChild(optionMain);
-
         infoBox.appendChild(infoBoxText1);
         infoBox.appendChild(breakText);
         infoBox.appendChild(infoBoxText2);
@@ -240,9 +268,16 @@ export class Renderer {
         valuesForm.appendChild(exportModeSelectBox);
         valuesForm.appendChild(saveButton);
         appBody.appendChild(valuesForm);
-        appNavigation.appendChild(navigation);
-        appRoot.appendChild(appNavigation);
+        appRoot.innerHTML = '';
+        this.renderNavigation(appRoot);
         appRoot.appendChild(appBody);
+    }
+
+    public renderCheckPage(appRoot: HTMLDivElement) {
+        appRoot.innerHTML = '';
+        this.renderNavigation(appRoot);
+        console.log(SGL.info());
+        this.sgl;
     }
 
     /**
