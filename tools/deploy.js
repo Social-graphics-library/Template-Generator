@@ -4,6 +4,10 @@ const path = require('path');
 const tmp = "./tmp/";
 const root = "./";
 
+// get version from package.json
+const pkg = require('./../package.json');
+const version = pkg.version;
+
 function deleteFolderRecursive(path) {
     if (fs.existsSync(path)) {
         fs.readdirSync(path).forEach(function (file) {
@@ -45,7 +49,7 @@ async function winInstaller() {
             outputDirectory: './tmp/build/installers/windows/',
             authors: 'Jonas Pfalzgraf',
             loadingGif: './static/assets/sgl.gif',
-            version: '1.0.0',
+            version: version,
             iconUrl: 'https://raw.githubusercontent.com/Social-graphics-library/Template-Generator/main/static/assets/sgl.ico',
         });
         console.log('It worked!');

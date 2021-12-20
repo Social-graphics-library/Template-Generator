@@ -17,6 +17,10 @@ var createWindow = function () {
     win.loadFile('./static/index.html');
     // Open the DevTools.
     // win.webContents.openDevTools({ mode: 'detach' })
+    win.webContents.on('new-window', function (e, url) {
+        e.preventDefault();
+        require('electron').shell.openExternal(url);
+    });
 };
 electron_1.app.whenReady().then(function () {
     createWindow();
