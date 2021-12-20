@@ -59,13 +59,13 @@ export class CheckTemplate {
             let tmp;
 
             try {
-                tmp = eval('(' + template + '\n)');
+                tmp = Function('(' + template + '\n)');
             } catch {
                 this.alertHandler.fireDanger('Invalid template');
                 return;
             }
 
-            if (this.sgl.checkTemplate("advanced", templateName, new tmp())) {
+            if (this.sgl.checkTemplate("advanced", templateName, tmp())) {
                 this.alertHandler.fireSuccess('Template is valid');
             } else {
                 this.alertHandler.fireDanger('Template is not valid');
