@@ -2,6 +2,7 @@ import { AlertHandler } from "./alertHandler";
 import $ from 'jquery';
 import { SGL } from 'social-graphics-library'
 import { Editor } from "./editor";
+import { CheckTemplate } from "./checkTemplate";
 
 /**
  * Renderer
@@ -313,24 +314,10 @@ export class Renderer {
         templateInput.required = true;
         templateInput.accept = '.js';
 
-        const templateInputModeSelect = document.createElement('select');
-        templateInputModeSelect.classList.add('app-body__template-input-mode-select');
-        templateInputModeSelect.classList.add('form-control');
-        templateInputModeSelect.id = 'template-input-mode-select';
-        templateInputModeSelect.required = true;
-        
-        const templateInputModeSelectOption = document.createElement('option');
-        templateInputModeSelectOption.classList.add('app-body__template-input-mode-select-option');
-        templateInputModeSelectOption.innerHTML = 'JavaScript';
-        templateInputModeSelectOption.value = 'javascript';
-        templateInputModeSelectOption.id = 'template-input-mode-select-option-javascript';
-        templateInputModeSelectOption.selected = true;
-
-        const templateInputModeSelectOption2 = document.createElement('option');
-        templateInputModeSelectOption2.classList.add('app-body__template-input-mode-select-option');
-        templateInputModeSelectOption2.innerHTML = 'TypeScript';
-        templateInputModeSelectOption2.value = 'typescript';
-        templateInputModeSelectOption2.id = 'template-input-mode-select-option-typescript';
+        const templateInputLabel = document.createElement('label');
+        templateInputLabel.classList.add('app-body__template-input-label');
+        templateInputLabel.innerHTML = '!Warning! Only .js files are allowed';
+        templateInputLabel.setAttribute('for', 'template-input');
 
         const checkButton = document.createElement('button');
         checkButton.classList.add('app-body__check-button');
@@ -343,16 +330,14 @@ export class Renderer {
         checkResult.classList.add('app-body__check-result');
         checkResult.id = 'check-result';
 
-        templateInputModeSelect.appendChild(templateInputModeSelectOption);
-        templateInputModeSelect.appendChild(templateInputModeSelectOption2);
-
         appBody.appendChild(appBodyTitle);
         appBody.appendChild(appBodyText);
         appBody.appendChild(templateInput);
-        appBody.appendChild(templateInputModeSelect);
+        appBody.appendChild(templateInputLabel);
         appBody.appendChild(checkButton);
         appBody.appendChild(checkResult);
         appRoot.appendChild(appBody);
+        new CheckTemplate(this.sgl);
     }
 
     /**
