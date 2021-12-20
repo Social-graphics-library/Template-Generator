@@ -7,7 +7,7 @@
   "productName": "SGL Template Generator",
   "scripts": {
     "start": "electron .",
-    "build": "npm run build-main-file && npm run build-sass && webpack --config ./webpack.config.js",
+    "build": "node ./tools/updateVersion.js && npm run build-main-file && npm run build-sass && webpack --config ./webpack.config.js",
     "build-main-file": "tsc ./app/main.ts",
     "watch-main-file": "tsc ./app/main.ts --watch",
     "watch-webpack": "webpack --config ./webpack.config.js --watch",
@@ -47,7 +47,10 @@
     "social",
     "media"
   ],
-  "author": "Jonas Pfalzgraf",
+  "author": {
+    "name": "Jonas Pfalzgraf",
+    "email": "info@josunlp.de"
+  },
   "license": "MPL-2.0",
   "bugs": {
     "url": "https://github.com/Social-graphics-library/Template-Generator/issues"

@@ -3,6 +3,7 @@ import $ from 'jquery';
 import { SGL } from 'social-graphics-library'
 import { Editor } from "./editor";
 import { CheckTemplate } from "./checkTemplate";
+import { Info } from "../model/info";
 
 /**
  * Renderer
@@ -25,11 +26,20 @@ export class Renderer {
     private sgl: SGL
 
     /**
+     * Info instance of renderer
+     */
+    private info: Info
+
+    /**
      * Creates an instance of renderer.
      */
-    private constructor() {
-        this.alertHandler = new AlertHandler();
+    private constructor(target: HTMLDivElement) {
+        this.info = new Info();
         this.sgl = new SGL();
+        this.renderNavigation(target);
+        this.renderMainPage(target);
+        this.renderFooter();
+        this.alertHandler = new AlertHandler();
         console.log('Renderer initialized');
     }
 
@@ -37,9 +47,9 @@ export class Renderer {
      * Gets instance
      * @returns instance
      */
-    public static getInstance(): Renderer {
+    public static getInstance(target: HTMLDivElement): Renderer {
         if (!Renderer.instance) {
-            Renderer.instance = new Renderer();
+            Renderer.instance = new Renderer(target);
         }
 
         return Renderer.instance;
@@ -77,10 +87,45 @@ export class Renderer {
     }
 
     /**
+     * Renders footer
+     */
+    private renderFooter():void {
+        const appFooter = document.createElement('footer');
+        const footer = document.createElement('div');
+        const footerText = document.createElement('p');     
+        const footerLink = document.createElement('a');   
+
+        appFooter.classList.add('app-footer');
+        footer.classList.add('app-footer__footer');
+        footerText.classList.add('app-footer__footer-text');
+        footerLink.classList.add('app-footer__footer-link');
+        footerLink.innerHTML = 'Github';
+        footerLink.id = 'footer-link';
+        footerLink.href = this.info._homepage;
+        footerLink.target = '_blank';
+
+        footerText.innerHTML = this.info._name 
+                                + ' © ' + new Date().getFullYear().toString() + ' v' 
+                                + this.info._version + ' by ' 
+                                + this.info._author 
+                                + ' |  ';
+
+        footer.appendChild(footerText);
+        footer.appendChild(footerLink);
+        appFooter.appendChild(footer);
+        try {
+            document.body.removeChild(document.getElementsByTagName('footer')[0] as HTMLDivElement);
+        } catch {
+            console.log('No footer found');
+        }
+        document.body.appendChild(appFooter);
+    }
+
+    /**
      * Renders main
      * @param appRoot
      */
-    public renderMainPage(appRoot: HTMLDivElement):void {
+    private renderMainPage(appRoot: HTMLDivElement):void {
         const appBody = document.createElement('div');
         const appBodyTitle = document.createElement('h1');
         const svgDropZone = document.createElement('input');
@@ -280,6 +325,7 @@ export class Renderer {
         appRoot.innerHTML = '';
         this.renderNavigation(appRoot);
         appRoot.appendChild(appBody);
+        this.renderFooter();
         const editorIni = new Editor();
         editorIni;
     }
@@ -288,7 +334,7 @@ export class Renderer {
      * Renders check page
      * @param appRoot 
      */
-    public renderCheckPage(appRoot: HTMLDivElement) {
+    public renderCheckPage(appRoot: HTMLDivElement): void {
         appRoot.innerHTML = '';
         this.renderNavigation(appRoot);
         console.log(SGL.info());

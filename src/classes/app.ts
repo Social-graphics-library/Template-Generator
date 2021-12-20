@@ -47,8 +47,8 @@ export class App {
      */
     public async run(): Promise<void> {
         const target = this.appTarget;
-        const render = Renderer.getInstance();
+        const render = Renderer.getInstance(target);
         console.log('App running');
-        render.renderMainPage(target);
+        render;
     }
 }

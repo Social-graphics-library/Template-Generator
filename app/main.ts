@@ -18,6 +18,11 @@ const createWindow = () => {
 
     // Open the DevTools.
     // win.webContents.openDevTools({ mode: 'detach' })
+
+    win.webContents.on('new-window', (e, url) => {
+        e.preventDefault();
+        require('electron').shell.openExternal(url);
+    });
 }
 
 app.whenReady().then(() => {
