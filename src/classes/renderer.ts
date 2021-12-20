@@ -57,7 +57,7 @@ export class Renderer {
 
     /**
      * Renders navigation
-     * @param appRoot 
+     * @param appRoot
      */
     private renderNavigation(appRoot: HTMLDivElement):void {
         const appNavigation = document.createElement('div');
@@ -92,8 +92,8 @@ export class Renderer {
     private renderFooter():void {
         const appFooter = document.createElement('footer');
         const footer = document.createElement('div');
-        const footerText = document.createElement('p');     
-        const footerLink = document.createElement('a');   
+        const footerText = document.createElement('p');
+        const footerLink = document.createElement('a');
 
         appFooter.classList.add('app-footer');
         footer.classList.add('app-footer__footer');
@@ -104,10 +104,10 @@ export class Renderer {
         footerLink.href = this.info._homepage;
         footerLink.target = '_blank';
 
-        footerText.innerHTML = this.info._name 
-                                + ' © ' + new Date().getFullYear().toString() + ' v' 
-                                + this.info._version + ' by ' 
-                                + this.info._author 
+        footerText.innerHTML = this.info._name
+                                + ' © ' + new Date().getFullYear().toString() + ' v'
+                                + this.info._version + ' by '
+                                + this.info._author
                                 + ' |  ';
 
         footer.appendChild(footerText);
@@ -332,7 +332,7 @@ export class Renderer {
 
     /**
      * Renders check page
-     * @param appRoot 
+     * @param appRoot
      */
     public renderCheckPage(appRoot: HTMLDivElement): void {
         appRoot.innerHTML = '';

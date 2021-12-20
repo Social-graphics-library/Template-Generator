@@ -39,7 +39,7 @@ export class CheckTemplate {
 
     /**
      * Checks template
-     * @param input 
+     * @param input
      */
     private async checkTemplate(input: HTMLInputElement): Promise<void> {
         let file: File
@@ -77,9 +77,9 @@ export class CheckTemplate {
 
     /**
      * Removes string
-     * @param str 
-     * @param remove 
-     * @returns string 
+     * @param str
+     * @param remove
+     * @returns string
      */
     private removeString(str: string, remove: string): string {
         return str.replace(remove, '');
