@@ -1,4 +1,3 @@
-import { Editor } from "./editor";
 import { Guid } from "./guid";
 import { Renderer } from "./renderer";
 
@@ -48,10 +47,8 @@ export class App {
      */
     public async run(): Promise<void> {
         const target = this.appTarget;
-        const render = Renderer.getInstance();
+        const render = Renderer.getInstance(target);
         console.log('App running');
-        render.renderMain(target);
-        const editor = Editor.getInstance();
-        editor;
+        render;
     }
 }

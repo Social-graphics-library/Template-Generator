@@ -1,5 +1,9 @@
 import { AlertHandler } from "./alertHandler";
 import $ from 'jquery';
+import { SGL } from 'social-graphics-library'
+import { Editor } from "./editor";
+import { CheckTemplate } from "./checkTemplate";
+import { Info } from "../model/info";
 
 /**
  * Renderer
@@ -17,9 +21,24 @@ export class Renderer {
     private alertHandler: AlertHandler
 
     /**
+     * Sgl instance of renderer
+     */
+    private sgl: SGL
+
+    /**
+     * Info instance of renderer
+     */
+    private info: Info
+
+    /**
      * Creates an instance of renderer.
      */
-    private constructor() {
+    private constructor(target: HTMLDivElement) {
+        this.info = new Info();
+        this.sgl = new SGL();
+        this.renderNavigation(target);
+        this.renderMainPage(target);
+        this.renderFooter();
         this.alertHandler = new AlertHandler();
         console.log('Renderer initialized');
     }
@@ -28,23 +47,87 @@ export class Renderer {
      * Gets instance
      * @returns instance
      */
-    public static getInstance(): Renderer {
+    public static getInstance(target: HTMLDivElement): Renderer {
         if (!Renderer.instance) {
-            Renderer.instance = new Renderer();
+            Renderer.instance = new Renderer(target);
         }
 
         return Renderer.instance;
     }
 
     /**
-     * Renders main
+     * Renders navigation
      * @param appRoot
      */
-    public renderMain(appRoot: HTMLDivElement):void {
+    private renderNavigation(appRoot: HTMLDivElement):void {
         const appNavigation = document.createElement('div');
         const navigation = document.createElement('nav');
         const optionMain = document.createElement('button');
+        const optionCheck = document.createElement('button');
+
+        appNavigation.classList.add('app-navigation');
+        optionMain.classList.add('app-navigation__option-main');
+        optionMain.classList.add('nav-item');
+        optionMain.classList.add('btn');
+        optionMain.innerHTML = 'Generate new template';
+        optionMain.onclick = () => {
+            this.renderMainPage(appRoot);
+        }
+        optionCheck.classList.add('app-navigation__option-check');
+        optionCheck.classList.add('nav-item');
+        optionCheck.classList.add('btn');
+        optionCheck.innerHTML = 'Check template';
+        optionCheck.onclick = () => {
+            this.renderCheckPage(appRoot);
+        }
+        navigation.appendChild(optionMain);
+        navigation.appendChild(optionCheck);
+        appNavigation.appendChild(navigation);
+        appRoot.appendChild(appNavigation);
+    }
+
+    /**
+     * Renders footer
+     */
+    private renderFooter():void {
+        const appFooter = document.createElement('footer');
+        const footer = document.createElement('div');
+        const footerText = document.createElement('p');
+        const footerLink = document.createElement('a');
+
+        appFooter.classList.add('app-footer');
+        footer.classList.add('app-footer__footer');
+        footerText.classList.add('app-footer__footer-text');
+        footerLink.classList.add('app-footer__footer-link');
+        footerLink.innerHTML = 'Github';
+        footerLink.id = 'footer-link';
+        footerLink.href = this.info._homepage;
+        footerLink.target = '_blank';
+
+        footerText.innerHTML = this.info._name
+                                + ' © ' + new Date().getFullYear().toString() + ' v'
+                                + this.info._version + ' by '
+                                + this.info._author
+                                + ' |  ';
+
+        footer.appendChild(footerText);
+        footer.appendChild(footerLink);
+        appFooter.appendChild(footer);
+        try {
+            document.body.removeChild(document.getElementsByTagName('footer')[0] as HTMLDivElement);
+        } catch {
+            console.log('No footer found');
+        }
+        document.body.appendChild(appFooter);
+    }
+
+    /**
+     * Renders main
+     * @param appRoot
+     */
+    private renderMainPage(appRoot: HTMLDivElement):void {
         const appBody = document.createElement('div');
+        const appBodyTitle = document.createElement('h1');
         const svgDropZone = document.createElement('input');
         const widthInput = document.createElement('input');
         const heightInput = document.createElement('input');
@@ -65,12 +148,12 @@ export class Renderer {
         const iconOne = document.createElement('img');
         const iconTwo = document.createElement('img');
 
-        appNavigation.classList.add('app-navigation');
         appBody.classList.add('app-body');
-        optionMain.classList.add('app-navigation__option-main');
-        optionMain.classList.add('nav-item');
-        optionMain.classList.add('btn');
-        optionMain.innerHTML = 'Generate new template';
+
+        //#region appBodyTitle
+        appBodyTitle.classList.add('app-body__title');
+        appBodyTitle.innerHTML = 'Generate';
+        //#endregion
         
         //#region svgDropZone
         svgDropZone.type = 'file';
@@ -222,8 +305,6 @@ export class Renderer {
         previewButton.id = 'preview-button';
         //#endregion
 
-        navigation.appendChild(optionMain);
-
         infoBox.appendChild(infoBoxText1);
         infoBox.appendChild(breakText);
         infoBox.appendChild(infoBoxText2);
@@ -231,6 +312,7 @@ export class Renderer {
         fileForm.appendChild(svgDropZone);
         fileForm.appendChild(submitDrop);
         fileForm.appendChild(infoBox);
+        appBody.appendChild(appBodyTitle);
         appBody.appendChild(fileForm);
         appBody.appendChild(editor);
         appBody.appendChild(previewButton);
@@ -240,9 +322,68 @@ export class Renderer {
         valuesForm.appendChild(exportModeSelectBox);
         valuesForm.appendChild(saveButton);
         appBody.appendChild(valuesForm);
-        appNavigation.appendChild(navigation);
-        appRoot.appendChild(appNavigation);
+        appRoot.innerHTML = '';
+        this.renderNavigation(appRoot);
         appRoot.appendChild(appBody);
+        this.renderFooter();
+        const editorIni = new Editor();
+        editorIni;
+    }
+
+    /**
+     * Renders check page
+     * @param appRoot
+     */
+    public renderCheckPage(appRoot: HTMLDivElement): void {
+        appRoot.innerHTML = '';
+        this.renderNavigation(appRoot);
+        console.log(SGL.info());
+        this.sgl;
+
+        const appBody = document.createElement('div');
+        appBody.classList.add('app-body');
+        appBody.id = 'app-body';
+
+        const appBodyTitle = document.createElement('h1');
+        appBodyTitle.classList.add('app-body__title');
+        appBodyTitle.innerHTML = 'Check';
+
+        const appBodyText = document.createElement('p');
+        appBodyText.classList.add('app-body__text');
+        appBodyText.innerHTML = 'Select your template and click the button below to see the result of the Check.';
+
+        const templateInput = document.createElement('input');
+        templateInput.classList.add('app-body__template-input');
+        templateInput.classList.add('form-control');
+        templateInput.id = 'template-input';
+        templateInput.type = 'file';
+        templateInput.required = true;
+        templateInput.accept = '.js';
+
+        const templateInputLabel = document.createElement('label');
+        templateInputLabel.classList.add('app-body__template-input-label');
+        templateInputLabel.innerHTML = '!Warning! Only .js files are allowed';
+        templateInputLabel.setAttribute('for', 'template-input');
+
+        const checkButton = document.createElement('button');
+        checkButton.classList.add('app-body__check-button');
+        checkButton.classList.add('btn');
+        checkButton.classList.add('btn-success');
+        checkButton.innerHTML = 'Check';
+        checkButton.id = 'check-button';
+
+        const checkResult = document.createElement('div');
+        checkResult.classList.add('app-body__check-result');
+        checkResult.id = 'check-result';
+
+        appBody.appendChild(appBodyTitle);
+        appBody.appendChild(appBodyText);
+        appBody.appendChild(templateInput);
+        appBody.appendChild(templateInputLabel);
+        appBody.appendChild(checkButton);
+        appBody.appendChild(checkResult);
+        appRoot.appendChild(appBody);
+        new CheckTemplate(this.sgl);
     }
 
     /**

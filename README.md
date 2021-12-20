@@ -60,3 +60,13 @@ The build script first installs all dependencies with ```npm install``` and then
 ![Step 5](https://raw.githubusercontent.com/Social-graphics-library/Template-Generator/main/static/assets/STEP_5.png)
 
 ---
+
+## Check template
+
+### Step 1 - Select JS template file
+
+![Check Step 1](https://raw.githubusercontent.com/Social-graphics-library/Template-Generator/main/static/assets/CHECK_STEP_1.png)
+
+### Step 2 - Click on check button
+
+![Check Step 2](https://raw.githubusercontent.com/Social-graphics-library/Template-Generator/main/static/assets/CHECK_STEP_2.png)

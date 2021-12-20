@@ -4,10 +4,6 @@ import '../../node_modules/codemirror/mode/xml/xml';
  */
 export declare class Editor {
     /**
-     * Instance of app
-     */
-    private static instance;
-    /**
      * Target of editor
      */
     private target;
@@ -27,11 +23,6 @@ export declare class Editor {
      * Creates an instance of editor.
      */
     constructor();
-    /**
-     * Gets instance
-     * @returns instance
-     */
-    static getInstance(): Editor;
     /**
      * Sets editor listener
      */

@@ -10,11 +10,6 @@ import { Preview } from './preview';
 export class Editor {
 
     /**
-     * Instance of app
-     */
-    private static instance: Editor
-
-    /**
      * Target of editor
      */
     private target: HTMLDivElement
@@ -57,18 +52,6 @@ export class Editor {
 
         this.preview = Preview.getInstance(editor);
         this.preview;
-    }
-
-    /**
-     * Gets instance
-     * @returns instance
-     */
-    public static getInstance(): Editor {
-        if (!Editor.instance) {
-            Editor.instance = new Editor();
-        }
-
-        return Editor.instance;
     }
 
     /**
